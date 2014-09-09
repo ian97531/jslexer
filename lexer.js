@@ -1,24 +1,22 @@
 var process = require('process');
+var fs = require('fs');
 
 var Lexer = require('./lib/Lexer');
+var LexerPrinter = require('./lib/LexerPrinter');
 var jsdefs = require('./lib/jsdefinitions');
 
-var done = false;
 var tokens = [];
-var lexer = new Lexer(process.argv[2], jsdefs.RULES);
-lexer.on('readable', function(){
-    while(!done){
-        tokens = tokens.concat(lexer.consume());
-    }
-});
+var file = fs.createReadStream(process.argv[2], {encoding: 'utf8'});
+var lexer = new Lexer(jsdefs.RULES, jsdefs.LINE_SEPARATOR);
 
+// Single line comment.
 lexer.on('error', function(error){
     error.print();
 });
 
-lexer.on('end', function(){
-    done = true;
-    var errors = lexer.getErrors();
-    console.log('Complete with ' + tokens.length + ' tokens.');
-    console.log('Complete with ' + errors.length + ' errors.');
-});
+/**
+ * Stuff!
+ */
+file.pipe(lexer)
+    .pipe(new LexerPrinter())
+    .pipe(process.stdout);
