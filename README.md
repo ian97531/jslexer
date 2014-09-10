@@ -1,7 +1,7 @@
 #jslexer
 
 
-A Lexer class that conforms to the stream.Transform protocol. The lexer expects source text to be piped into it, and will produce Token instances as defined in the jsdefinition.js file. 
+A Lexer class that conforms to the stream.Transform protocol. The lexer expects source text to be piped into it, and will produce Token instances as defined in the provided language module. 
 
 
 ###Example Usage
