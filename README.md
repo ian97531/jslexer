@@ -37,7 +37,7 @@ The available token types are defined for each language in the language-specific
 ```JavaScript
 var js = require('./languages/javascript');
 
-var commentTokenType = js.TOKENS.COMMENT;
+var commentTokenType = js.TOKEN_TYPES.COMMENT;
 ```
 
 ###Rules
