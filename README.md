@@ -50,8 +50,8 @@ Rules used by the Lexer to define tokens have a simple format and come in two fl
 An example string-based rule might look like this:
 ```JavaScript
 { 
-	string: ‘do’,
-	type: ‘DO_STATEMENT’
+	string: 'do',
+	type: 'DO_STATEMENT'
 }
 ```
 
@@ -59,7 +59,7 @@ An example regular expression-based rule might look like this:
 ```JavaScript
 { 
 	regex: new RegExp('/\\*(?:.|\n)*?\\*\\/'),
-	type: ‘COMMENT’
+	type: 'COMMENT'
 }
 ```
 
