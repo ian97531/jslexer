@@ -9,9 +9,7 @@ A Lexer class that conforms to the stream.Transform protocol. The lexer expects 
 The lexer-demo.js file is included as a harness to allow you to easily test the functionality of the Lexer. Any file path that you pass in as the final argument will be converted into a series of tokens and output to stdout by the script.
 
 ```Shell
-
-$> node lexer-demo.js ./lexer.js
-
+$> node lexer-demo.js ./lexer-demo.js
 ```
 
 The demo script uses creates an fs.ReadStream to start streaming the contents of the file passed into the script as an argument. The output of this read stream is then piped into an instance of the Lexer class which transforms the stream from text to instances of the Token class. 
@@ -35,14 +33,12 @@ As with any classes that implement the stream.Readable protocol, this class can 
 Included with the Lexer class is a Token class that defines the format for tokens emitted by the lexer. Below is an example token:
 
 ```JSON
-
 {
 	"text":"pipe",
 	"type":"IDENTIFIER",
 	"line":20,
 	"character":6
 }
-
 ```
 
 The rules used to tokenize incoming source code, and the set of token type values available are defined in the jsdefinitions.js file. See the Rules section for more information on the jsdefinitions.js file.
@@ -52,23 +48,19 @@ The rules used to tokenize incoming source code, and the set of token type value
 Rules used by the Lexer to define tokens have a simple format and come in two flavors: string-based rules and regular expression-based rules.
 
 An example string-based rule might look like this:
-```JSON
-
+```JavaScript
 { 
 	string: ‘do’,
 	type: ‘DO_STATEMENT’
 }
-
 ```
 
 An example regular expression-based rule might look like this:
-```JSON
-
+```JavaScript
 { 
 	regex: new RegExp('/\\*(?:.|\n)*?\\*\\/'),
 	type: ‘COMMENT’
 }
-
 ```
 
 ###Error Handling
