@@ -28,18 +28,6 @@ The optional third parameter is an options dictionary that is passed to the stre
 
 As with any classes that implement the stream.Transform protocol, this class can be used in flowing or non-flowing mode. In non-flowing mode, a ‘readable’ event will be emitted any time tokens are available to be consumed. The user can then call Lexer.read to receive these tokens one at a time. If the user attaches an an event listener, this will cause the lexer to enter flowing mode. The lexer will emit a ‘data’ event as soon as a token is available.
 
-##Languages
-Languages are defined as modules in the languages directory. Each language must specify the available token types for that language, the rules that match character sequences to those token types, and the line separating character used by that language. The language is a module with an index.js that should expose an object containing 'RULES', 'TOKEN\_TYPES', and 'LINE\_SEPARATOR'
-
-###Token Types
-The available token types are defined for each language in the language-specific module as an enum. For example, a token type can be reached using:
-
-```JavaScript
-var js = require('./languages/javascript');
-
-var commentTokenType = js.TOKEN_TYPES.COMMENT;
-```
-
 ###Token Class
 
 Included with the Lexer class is a Token class that defines the format for tokens emitted by the lexer. Below is a JSONified example token:
@@ -61,6 +49,18 @@ The LexerError instance will contain the line of text that contained the error, 
 You can use the LexerError.print method to print a user-friendly error message to the console.
 
 After emitting the error, the lexer will advance one character and continue to attempt to match rules.
+
+##Languages
+Languages are defined as modules in the languages directory. Each language must specify the available token types for that language, the rules that match character sequences to those token types, and the line separating character used by that language. The language is a module with an index.js that should expose an object containing 'RULES', 'TOKEN\_TYPES', and 'LINE\_SEPARATOR'
+
+###Token Types
+The available token types are defined for each language in the language-specific module as an enum. For example, a token type can be reached using:
+
+```JavaScript
+var js = require('./languages/javascript');
+
+var commentTokenType = js.TOKEN_TYPES.COMMENT;
+```
 
 ###Rules
 
