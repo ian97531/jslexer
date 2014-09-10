@@ -1,0 +1,28 @@
+{
+  "name": "jslexer",
+  "version": "0.0.1",
+  "description": "A stream based lexer and rules for tokenizing JavaScript.",
+  "main": "lexer.js",
+  "dependencies": {
+    "enum": "^0.2.6",
+    "process": "^0.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node lexer.js ./lib/lexer.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ian97531/jslexer.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "Lexer"
+  ],
+  "author": "Ian White",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ian97531/jslexer/issues"
+  },
+  "homepage": "https://github.com/ian97531/jslexer"
+}

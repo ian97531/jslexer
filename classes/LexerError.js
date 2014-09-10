@@ -1,4 +1,10 @@
 /**
+ * This file defines the LexerError class. Instances of LexerError are created by the Lexer class
+ * when the lexer is stuck and unable to interpret the next token. A LexerError will be created to
+ * capture the line, character, line number, and character number where the incident occured.
+ */
+
+/**
  * Creates a new LexerError
  *
  * @param {string} lineText The text of the current line.

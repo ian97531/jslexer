@@ -1,10 +1,28 @@
-var util = require('util');
+/**
+ * This file defines the Lexer class. Instances of the Lexer class accept streams of source text,
+ * and will transform those streams into streams of token instances using the rules provided to the
+ * Lexer constructor.
+ */
+
 var StringDecoder = require('string_decoder').StringDecoder;
 var Transform = require('stream').Transform;
+var util = require('util');
 
 var LexerError = require('./LexerError');
 var Token = require('./Token');
 
+/**
+ * Creates an instance of the Lexer class.
+ *
+ * @param {Array<Object>} rules An array of rules used to map sequences of characters in the
+ *      incoming stream of source text into token instances.
+ * @param {string} separator The character that should be used to identify line endings in the
+ *      incoming stream of source text.
+ * @param {Object=} options An optional object that will be passed to the stream.Transform
+ *      constructor.
+ *
+ * @constructor
+ */
 var Lexer = function(rules, separator, options){
     Transform.call(this, options);
     this._writableState.objectMode = false;
