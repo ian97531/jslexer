@@ -26,40 +26,50 @@ The second parameter is the line separator character that should be used by the 
 
 The optional third parameter is an options dictionary that is passed to the stream.Transform parent class constructor.
 
-As with any classes that implement the stream.Readable protocol, this class can be used in flowing or non-flowing mode. In non-flowing mode, a ‘readable’ event will be emitted any time tokens are available to be consumed. The user can then call Lexer.read to receive these tokens one at a time. If the user attaches an an event listener, this will cause the lexer to enter flowing mode. The lexer will emit a ‘data’ event as soon as a token is available.
+As with any classes that implement the stream.Transform protocol, this class can be used in flowing or non-flowing mode. In non-flowing mode, a ‘readable’ event will be emitted any time tokens are available to be consumed. The user can then call Lexer.read to receive these tokens one at a time. If the user attaches an an event listener, this will cause the lexer to enter flowing mode. The lexer will emit a ‘data’ event as soon as a token is available.
 
-###Token Class
+##Languages
+Languages are defined as modules in the languages directory. Each language must specify the available token types for that language, the rules that match character sequences to those token types, and the line separating character used by that language. The language is a module with an index.js that should expose an object containing 'RULES', 'TOKEN\_TYPES', and 'LINE\_SEPARATOR'
 
-Included with the Lexer class is a Token class that defines the format for tokens emitted by the lexer. Below is an example token:
+###Token Types
+The available token types are defined for each language in the language-specific module as an enum. For example, a token type can be reached using:
 
-```JSON
-{
-	"text":"pipe",
-	"type":"IDENTIFIER",
-	"line":20,
-	"character":6
-}
+```JavaScript
+var js = require('./languages/javascript');
+
+var commentTokenType = js.TOKENS.COMMENT;
 ```
-
-The rules used to tokenize incoming source code, and the set of token type values available are defined in the jsdefinitions.js file. See the Rules section for more information on the jsdefinitions.js file.
 
 ###Rules
 
-Rules used by the Lexer to define tokens have a simple format and come in two flavors: string-based rules and regular expression-based rules.
+Each language module defines it's own set of rules to map sequences of characters to a specific token type defined by that language module. Rules have a simple format and come in two flavors: string-based rules and regular expression-based rules. The RULES exposed by a language module should be an array containing the following two kinds of Objects:
 
-An example string-based rule might look like this:
+An example string-based rule for a do statement might look like this:
 ```JavaScript
 { 
 	string: 'do',
-	type: 'DO_STATEMENT'
+	type: tokenTypes.DO_STATEMENT
 }
 ```
 
-An example regular expression-based rule might look like this:
+An example regular expression-based rule for single-line comments might look like this:
 ```JavaScript
 { 
 	regex: new RegExp('/\\*(?:.|\n)*?\\*\\/'),
-	type: 'COMMENT'
+	type: tokenTypes.COMMENT
+}
+```
+
+###Token Class
+
+Included with the Lexer class is a Token class that defines the format for tokens emitted by the lexer. Below is a JSONified example token:
+
+```JSON
+{
+	"text":"foo",
+	"type":"IDENTIFIER",
+	"line":20,
+	"character":6
 }
 ```
 
