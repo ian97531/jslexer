@@ -40,26 +40,6 @@ var js = require('./languages/javascript');
 var commentTokenType = js.TOKEN_TYPES.COMMENT;
 ```
 
-###Rules
-
-Each language module defines it's own set of rules to map sequences of characters to a specific token type defined by that language module. Rules have a simple format and come in two flavors: string-based rules and regular expression-based rules. The RULES exposed by a language module should be an array containing the following two kinds of Objects:
-
-An example string-based rule for a do statement might look like this:
-```JavaScript
-{ 
-	string: 'do',
-	type: tokenTypes.DO_STATEMENT
-}
-```
-
-An example regular expression-based rule for single-line comments might look like this:
-```JavaScript
-{ 
-	regex: new RegExp('/\\*(?:.|\n)*?\\*\\/'),
-	type: tokenTypes.COMMENT
-}
-```
-
 ###Token Class
 
 Included with the Lexer class is a Token class that defines the format for tokens emitted by the lexer. Below is a JSONified example token:
@@ -81,3 +61,23 @@ The LexerError instance will contain the line of text that contained the error, 
 You can use the LexerError.print method to print a user-friendly error message to the console.
 
 After emitting the error, the lexer will advance one character and continue to attempt to match rules.
+
+###Rules
+
+Each language module defines it's own set of rules to map sequences of characters to a specific token type defined by that language module. Rules have a simple format and come in two flavors: string-based rules and regular expression-based rules. The RULES exposed by a language module should be an array containing the following two kinds of Objects:
+
+An example string-based rule for a do statement might look like this:
+```JavaScript
+{ 
+	string: 'do',
+	type: tokenTypes.DO_STATEMENT
+}
+```
+
+An example regular expression-based rule for single-line comments might look like this:
+```JavaScript
+{ 
+	regex: new RegExp('/\\*(?:.|\n)*?\\*\\/'),
+	type: tokenTypes.COMMENT
+}
+```
