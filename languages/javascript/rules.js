@@ -3,7 +3,8 @@
  * JavaScript source file into their corresponding token types.
  */
 
-var identifiers = require('./identifiers');
+var identifiers = require('./identifiers').IDENTIFIER;
+var startCharacters = require('./identifiers').START_CHARACTERS;
 var tokenTypes = require('./tokens');
 
 /**
@@ -181,9 +182,12 @@ var RULES = [
         regex: new RegExp('/\\*(?:.|\n)*?\\*\\/'),
         type: tokenTypes.COMMENT
     }, {
-        regex: new RegExp('[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?'),
+        regex: new RegExp('[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?(?!' + startCharacters + ')'),
         type: tokenTypes.NUMBER_LITERAL
     }, {
+        regex: new RegExp('0(?:x|X)[0-9A-Fa-f]+(?!' + startCharacters + ')'),
+        type: tokenTypes.NUMBER_LITERAL
+    },  {
         regex: new RegExp('(?:\\+|-)?Infinity'),
         type: tokenTypes.NUMBER_LITERAL
     }, {
